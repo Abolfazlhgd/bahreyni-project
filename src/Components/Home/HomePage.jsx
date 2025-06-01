@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { User, LogOut, Copy } from "lucide-react";
+import { User, LogOut } from "lucide-react";
 import BottomNav from "./BottomNav";
 
 function HomePage() {
   const [activeTab, setActiveTab] = useState("home");
-  const [showFullCard, setShowFullCard] = useState(false);
   const [selectedBadge, setSelectedBadge] = useState(null);
 
   const badges = [
@@ -89,28 +88,28 @@ function HomePage() {
       </div>
 
       {/* کارت بانکی */}
-      <Card className="mb-6 bg-gradient-to-r from-blue-600 to-blue-500 text-white">
-        <div className="flex justify-between items-start mb-4">
-          <span className="text-xs opacity-80">شماره کارت</span>
-          <button className="text-blue-200">
-            <Copy size={16} />
-          </button>
+      <Card className="w-full max-w-sm mx-auto mb-6 bg-white p-1 rounded-xl shadow-md border">
+        <div className="flex justify-between items-center mb-6">
+          {/* لوگوی بانک */}
+          <div className="w-16 h-8 sm:w-20 sm:h-10 bg-white/30 rounded flex items-center justify-center text-xs sm:text-sm font-bold">
+            <img
+              src="/images/bank-logo.png"
+              alt="bank-logo"
+              title="bank-logo"
+            />
+          </div>
         </div>
-        <p className="text-xl tracking-widest mb-6 font-mono">
-          {showFullCard ? "6037 6915 3542 9874" : "•••• •••• •••• 9874"}
-        </p>
-        <div className="flex justify-between items-center">
-          <span className="text-xs opacity-80">
-            {showFullCard
-              ? "IR12 5456 5585 9688 4512 2245"
-              : "IR12 •••• •••• •••• 2245"}
-          </span>
-          <button
-            onClick={() => setShowFullCard(!showFullCard)}
-            className="text-xs bg-white/20 px-2 py-1 rounded"
-          >
-            {showFullCard ? "مخفی کردن" : "نمایش کامل"}
-          </button>
+        <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl p-3 sm:p-6">
+          {/* شماره کارت */}
+          <p className="text-lg md:text-xl tracking-widest font-mono text-center mb-6">
+            6037 6219 0058 4369
+          </p>
+
+          {/* تاریخ انقضا و نام دارنده کارت */}
+          <div className="flex sm:flex-row justify-between items-start text-xs sm:text-base gap-2">
+            <span className="opacity-80">تاریخ انقضا: 01/12</span>
+            <span className="font-semibold"> محمد یاسین بحرینی</span>
+          </div>
         </div>
       </Card>
 

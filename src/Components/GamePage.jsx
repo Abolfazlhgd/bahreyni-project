@@ -62,7 +62,12 @@ const games = [
     title: "شکارچی فیشینگ!",
     color: "orange",
   },
-  { id: 5, icon: <Banknote size={18} />, title: "پول‌شویی؟ نه!", color: "red" },
+  {
+    id: 5,
+    icon: <Banknote size={18} />,
+    title: "پول‌شویی؟ نه!",
+    color: "red",
+  },
   {
     id: 6,
     icon: <Scale size={18} />,
@@ -75,17 +80,27 @@ const games = [
     title: "کارهای خانه، پاداش!",
     color: "pink",
   },
-  { id: 8, icon: <Gem size={18} />, title: "طلاسنجی!", color: "purple" },
+  {
+    id: 8,
+    icon: <Gem size={18} />,
+    title: "طلاسنجی!",
+    color: "purple",
+  },
   {
     id: 9,
     icon: <LineChart size={18} />,
     title: "سهام‌باز کوچک",
     color: "green",
   },
-  { id: 10, icon: <Leaf size={18} />, title: "باغچهٔ پولی", color: "blue" },
+  {
+    id: 10,
+    icon: <Leaf size={18} />,
+    title: "باغچهٔ پولی",
+    color: "blue",
+  },
 ];
 
-const GamePage = ({ onBack }) => {
+const GamePage = ({ onBack, onGameSelect }) => {
   return (
     <div
       dir="rtl"
@@ -138,6 +153,13 @@ const GamePage = ({ onBack }) => {
               </div>
               {/* Button */}
               <button
+                onClick={() => {
+                  if (game.id === 1 && onGameSelect) {
+                    onGameSelect("transfer"); // کارت به کارت
+                  } else if (game.id === 2 && onGameSelect) {
+                    onGameSelect("bill-payment"); // پرداخت قبض
+                  }
+                }}
                 className={`md:mt-0 mt-2 px-4 py-1 self-center md:self-end rounded-md ${
                   buttonClasses[game.color]
                 } text-white text-[11px] font-medium`}
