@@ -1,54 +1,16 @@
 import React, { useState } from "react";
 import { User, LogOut } from "lucide-react";
-import BottomNav from "./BottomNav";
 
 function HomePage() {
-  const [activeTab, setActiveTab] = useState("home");
   const [selectedBadge, setSelectedBadge] = useState(null);
 
   const badges = [
-    {
-      id: "bank",
-      icon: "🏦",
-      title: "رئیس بانک",
-      unlocked: true,
-      description: "برای مدیریت عالی حساب بانکی‌ات این نشان رو گرفتی!",
-    },
-    {
-      id: "stock",
-      icon: "📈",
-      title: "سهامدار کوچولو",
-      unlocked: false,
-      description: "وقتی اولین سهامت رو بخری این نشان باز میشه!",
-    },
-    {
-      id: "saver",
-      icon: "💰",
-      title: "پس‌اندازگر زرنگ",
-      unlocked: true,
-      description: "این نشان برای وقتی‌ـه که خوب پس‌انداز کنی.",
-    },
-    {
-      id: "brain",
-      icon: "🧠",
-      title: "نابغه مالی",
-      unlocked: false,
-      description: "با یادگیری مفاهیم مالی این نشان رو به‌دست میاری.",
-    },
-    {
-      id: "target",
-      icon: "🎯",
-      title: "هدف‌گذار قهرمان",
-      unlocked: false,
-      description: "این نشان زمانی باز میشه که به هدفی مالی برسی.",
-    },
-    {
-      id: "invest",
-      icon: "🌱",
-      title: "سرمایه‌گذار تازه‌کار",
-      unlocked: false,
-      description: "با اولین سرمایه‌گذاری، این نشان مال تو میشه!",
-    },
+    { id: "bank", icon: "🏦", title: "رئیس بانک", unlocked: true, description: "برای مدیریت عالی حساب بانکی‌ات این نشان رو گرفتی!" },
+    { id: "stock", icon: "📈", title: "سهامدار کوچولو", unlocked: false, description: "وقتی اولین سهامت رو بخری این نشان باز میشه!" },
+    { id: "saver", icon: "💰", title: "پس‌اندازگر زرنگ", unlocked: true, description: "این نشان برای وقتی‌ـه که خوب پس‌انداز کنی." },
+    { id: "brain", icon: "🧠", title: "نابغه مالی", unlocked: false, description: "با یادگیری مفاهیم مالی این نشان رو به‌دست میاری." },
+    { id: "target", icon: "🎯", title: "هدف‌گذار قهرمان", unlocked: false, description: "این نشان زمانی باز میشه که به هدفی مالی برسی." },
+    { id: "invest", icon: "🌱", title: "سرمایه‌گذار تازه‌کار", unlocked: false, description: "با اولین سرمایه‌گذاری، این نشان مال تو میشه!" },
   ];
 
   const Card = ({ children, className = "" }) => (
@@ -57,8 +19,8 @@ function HomePage() {
     </div>
   );
 
-  const HomeContent = () => (
-    <div dir="rtl" className="animate-fade-in md:w-4/5 mx-auto">
+  return (
+    <div dir="rtl" className="HomePage animate-fade-in md:w-4/5 mx-auto p-4 pb-24">
       {/* هدر کاربر */}
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center space-x-2">
@@ -90,22 +52,14 @@ function HomePage() {
       {/* کارت بانکی */}
       <Card className="w-full max-w-sm mx-auto mb-6 bg-white p-1 rounded-xl shadow-md border">
         <div className="flex justify-between items-center mb-6">
-          {/* لوگوی بانک */}
           <div className="w-16 h-8 sm:w-20 sm:h-10 bg-white/30 rounded flex items-center justify-center text-xs sm:text-sm font-bold">
-            <img
-              src="/images/bank-logo.png"
-              alt="bank-logo"
-              title="bank-logo"
-            />
+            <img src="/images/bank-logo.png" alt="bank-logo" title="bank-logo" />
           </div>
         </div>
         <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl p-3 sm:p-6">
-          {/* شماره کارت */}
           <p className="text-lg md:text-xl tracking-widest font-mono text-center mb-6">
             6037 6219 0058 4369
           </p>
-
-          {/* تاریخ انقضا و نام دارنده کارت */}
           <div className="flex sm:flex-row justify-between items-start text-xs sm:text-base gap-2">
             <span className="opacity-80">تاریخ انقضا: 01/12</span>
             <span className="font-semibold"> محمد یاسین بحرینی</span>
@@ -115,11 +69,7 @@ function HomePage() {
 
       {/* تابلوی افتخارات */}
       <Card>
-        <h3 className="font-bold text-gray-800 mb-2 text-center">
-          تابلوی افتخارات
-        </h3>
-
-        {/* نمایش توضیح نشان انتخاب شده */}
+        <h3 className="font-bold text-gray-800 mb-2 text-center">تابلوی افتخارات</h3>
         {selectedBadge && (
           <div className="text-sm text-center text-blue-700 bg-blue-50 border border-blue-100 rounded-lg py-2 px-3 mb-4">
             {selectedBadge.description}
@@ -145,19 +95,6 @@ function HomePage() {
           روی هر نشان کلیک کن تا بیشتر راجع‌بهش بدونی!
         </p>
       </Card>
-    </div>
-  );
-
-  return (
-    <div className="bg-gradient-to-b from-blue-50 to-white min-h-screen pb-20 p-4">
-      {activeTab === "home" ? (
-        <HomeContent />
-      ) : (
-        <div className="animate-fade-in text-center mt-20 text-gray-700">
-          {activeTab === "flag" ? "صفحه اهداف" : "صفحه دستاوردها"}
-        </div>
-      )}
-      <BottomNav active={activeTab} onChange={setActiveTab} />
     </div>
   );
 }

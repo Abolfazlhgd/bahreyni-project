@@ -9,7 +9,9 @@ function TransactionReceipt({ data, onBackToHome }) {
 
     // ساخت کد رهگیری تصادفی و تاریخ/ساعت
     const now = new Date();
-    setTrackingCode(Math.floor(100000000 + Math.random() * 900000000).toString());
+    setTrackingCode(
+      Math.floor(100000000 + Math.random() * 900000000).toString()
+    );
     setTimestamp(
       `${now.toLocaleDateString("fa-IR")} - ${now.toLocaleTimeString("fa-IR")}`
     );

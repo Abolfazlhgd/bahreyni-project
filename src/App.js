@@ -1,18 +1,81 @@
-import React, { useState } from "react";
-import Login from "./Components/Login.jsx";
-import HomePage from "./Components/Home/HomePage.jsx";
-import TrophyPage from "./Components/TrophyPage.jsx";
-import GamePage from "./Components/GamePage.jsx";
-import TransferPage from "./Components/Games/TransferForm.jsx"; // صفحه جدید
-import PaymentConfirmPage from "./Components/Games/PaymentConfirm.jsx"; // صفحه جدید
-import BottomNav from "./Components/Home/BottomNav.jsx";
-import TransactionReceipt from "./Components/Games/TransactionReceipt.jsx";
-import BillPaymentForm from "./Components/Games/BillPayment/BillPaymentForm.jsx";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import { useState } from "react";
+import Login from "./Components/Login/Login.jsx";
+import HomePage from "./Components/Home/HomePage";
+import TrophyPage from "./Components/Home/TrophyPage.jsx";
+import GamePage from "./Components/Home/GamePage.jsx";
+import TransferForm from "./Components/Games/Transfer/TransferForm";
+import TransferConfirm from "./Components/Games/Transfer/TransferConfirm";
+import TransactionReceipt from "./Components/Games/Transfer/TransactionReceipt..jsx";
+import BillPaymentForm from "./Components/Games/BillPayment/BillPaymentForm";
+import BottomNav from "./Components/Home/BottomNav";
+
+function AppContent() {
+  const [transferData, setTransferData] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const showBottomNav = ["/", "/trophies", "/goals"].includes(
+    location.pathname
+  );
+
+  return (
+    <div className="bg-gradient-to-b from-blue-50 to-white min-h-screen pb-20">
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/trophies" element={<TrophyPage />} />
+        <Route path="/goals" element={<GamePage />} />
+
+        <Route
+          path="/transfer"
+          element={
+            <TransferForm
+              onSubmit={(data) => {
+                setTransferData(data);
+                navigate("/payment-confirm");
+              }}
+            />
+          }
+        />
+        <Route
+          path="/payment-confirm"
+          element={
+            <TransferConfirm
+              data={transferData}
+              onBack={() => navigate("/transfer")}
+              onSuccess={() => navigate("/success")}
+            />
+          }
+        />
+        <Route
+          path="/success"
+          element={
+            <TransactionReceipt
+              data={transferData}
+              onBackToHome={() => {
+                setTransferData(null);
+                navigate("/");
+              }}
+            />
+          }
+        />
+        <Route path="/bill-payment" element={<BillPaymentForm />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+
+      {showBottomNav && <BottomNav />}
+    </div>
+  );
+}
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [activePage, setActivePage] = useState("home"); // home | trophy | game | transfer
-  const [transferData, setTransferData] = useState(null); // داده‌های انتقال وجه
 
   if (!isLoggedIn) {
     return (
@@ -22,62 +85,7 @@ function App() {
     );
   }
 
-  const handleTransferSubmit = (data) => {
-    setTransferData(data);
-    setActivePage("payment-confirm");
-  };
-
-  const renderPage = () => {
-    switch (activePage) {
-      case "home":
-        return <HomePage />;
-      case "trophy":
-        return <TrophyPage />;
-      case "game":
-        return <GamePage onGameSelect={setActivePage} />;
-      case "transfer":
-        return <TransferPage onSubmit={handleTransferSubmit} />;
-      case "payment-confirm":
-        return (
-          <PaymentConfirmPage
-            data={transferData}
-            onBack={() => setActivePage("transfer")}
-            onSuccess={() => setActivePage("success")}
-          />
-        );
-      case "success":
-        return (
-          <TransactionReceipt
-            data={transferData}
-            onBackToHome={() => {
-              setTransferData(null);
-              setActivePage("home");
-            }}
-          />
-        );
-      case "bill-payment":
-        return (
-          <BillPaymentForm
-            onSubmit={(data) => {
-              console.log("قبض ارسال شد:", data);
-              // بعداً می‌تونی به صفحه تأیید قبض بری
-            }}
-          />
-        );
-      default:
-        return <HomePage />;
-    }
-  };
-
-  return (
-    <div className="bg-gradient-to-b from-blue-50 to-white min-h-screen pb-20">
-      {renderPage()}
-      {/* نویگیشن پایین فقط برای صفحات اصلی نمایش داده شود */}
-      {!["transfer", "payment-confirm"].includes(activePage) && (
-        <BottomNav active={activePage} onChange={setActivePage} />
-      )}
-    </div>
-  );
+  return <AppContent />;
 }
 
 export default App;

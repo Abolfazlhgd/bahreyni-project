@@ -1,12 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   ChevronLeft,
   Info,
   Zap,
   ShoppingCart,
   CreditCard,
-  Trophy,
-  Clock,
   Check,
   ShieldAlert,
   Banknote,
@@ -101,10 +100,11 @@ const games = [
 ];
 
 const GamePage = ({ onBack, onGameSelect }) => {
+  const navigate = useNavigate();
   return (
     <div
       dir="rtl"
-      className="min-h-screen p-4 pb-20 animate-fade-in md:w-4/5 mx-auto"
+      className="GamePage min-h-screen p-4 pb-20 animate-fade-in md:w-4/5 mx-auto"
     >
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
@@ -154,11 +154,8 @@ const GamePage = ({ onBack, onGameSelect }) => {
               {/* Button */}
               <button
                 onClick={() => {
-                  if (game.id === 1 && onGameSelect) {
-                    onGameSelect("transfer"); // کارت به کارت
-                  } else if (game.id === 2 && onGameSelect) {
-                    onGameSelect("bill-payment"); // پرداخت قبض
-                  }
+                  if (game.id === 1) navigate("/transfer");
+                  else if (game.id === 2) navigate("/bill-payment");
                 }}
                 className={`md:mt-0 mt-2 px-4 py-1 self-center md:self-end rounded-md ${
                   buttonClasses[game.color]

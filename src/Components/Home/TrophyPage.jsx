@@ -59,7 +59,7 @@ export default function TrophyPage({ onBack }) {
   };
 
   return (
-    <div className="min-h-screen p-4 pb-20 animate-fade-in md:w-4/5 mx-auto">
+    <div className="TrophyPage min-h-screen p-4 pb-20 animate-fade-in md:w-4/5 mx-auto">
       {/* هدر صفحه */}
       <div className="flex justify-between items-center mb-6">
         <button
