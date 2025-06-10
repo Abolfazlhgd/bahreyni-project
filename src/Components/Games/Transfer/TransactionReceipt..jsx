@@ -26,8 +26,11 @@ function TransactionReceipt({ data, onBackToHome }) {
   }
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md text-right">
-      <h2 className="text-2xl font-bold text-center text-green-600 mb-6">
+    <div
+      dir="rtl"
+      className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md text-right"
+    >
+      <h2 className="text-2xl font-bold text-center text-green-600 mb-6 p-7">
         پرداخت موفق
       </h2>
 

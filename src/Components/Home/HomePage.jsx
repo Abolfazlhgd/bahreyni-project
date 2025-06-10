@@ -68,33 +68,35 @@ function HomePage() {
       </Card>
 
       {/* تابلوی افتخارات */}
-      <Card>
-        <h3 className="font-bold text-gray-800 mb-2 text-center">تابلوی افتخارات</h3>
-        {selectedBadge && (
-          <div className="text-sm text-center text-blue-700 bg-blue-50 border border-blue-100 rounded-lg py-2 px-3 mb-4">
-            {selectedBadge.description}
-          </div>
-        )}
+      <Card className="mt-6 p-6 bg-white rounded-2xl shadow-sm">
+      <h3 className="font-bold text-gray-800 mb-2 text-center">تابلوی افتخارات</h3>
 
-        <div className="grid grid-cols-3 gap-4 text-center">
-          {badges.map((badge) => (
-            <button
-              key={badge.id}
-              onClick={() => setSelectedBadge(badge)}
-              className={`w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow transition-all duration-200 ${
-                badge.unlocked
-                  ? "bg-yellow-400 text-white"
-                  : "bg-gray-200 text-gray-400 grayscale"
-              }`}
-            >
-              {badge.icon}
-            </button>
-          ))}
+      {selectedBadge && (
+        <div className="text-sm text-center text-blue-700 bg-blue-50 border border-blue-100 rounded-lg py-2 px-3 mb-4">
+          {selectedBadge.description}
         </div>
-        <p className="mt-4 text-sm text-gray-500 text-center">
-          روی هر نشان کلیک کن تا بیشتر راجع‌بهش بدونی!
-        </p>
-      </Card>
+      )}
+
+      <div className="grid grid-cols-3 gap-4 place-items-center text-center">
+        {badges.map((badge) => (
+          <button
+            key={badge.id}
+            onClick={() => setSelectedBadge(badge)}
+            className={`w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow transition-all duration-200 ${
+              badge.unlocked
+                ? "bg-yellow-400 text-white"
+                : "bg-gray-200 text-gray-400 grayscale"
+            }`}
+          >
+            {badge.icon}
+          </button>
+        ))}
+      </div>
+
+      <p className="mt-4 text-sm text-gray-500 text-center">
+        روی هر نشان کلیک کن تا بیشتر راجع‌بهش بدونی!
+      </p>
+    </Card>
     </div>
   );
 }

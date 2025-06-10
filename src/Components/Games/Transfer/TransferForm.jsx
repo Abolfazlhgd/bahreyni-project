@@ -67,152 +67,158 @@ function TransferForm({ onSubmit }) {
       >
         انتقال وجه
       </motion.h2>
+      <div
+        dir="rtl"
+        className="min-h-screen flex justify-center items-start pt-12 bg-gray-50"
+      >
+        <form onSubmit={handleSubmit} className="space-y-5 w-full px-5 ">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            <label className="block text-gray-700 mb-2 font-medium">
+              شماره کارت مبدأ
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                maxLength={19}
+                value={sourceCard}
+                onChange={(e) =>
+                  setSourceCard(formatCardNumber(e.target.value))
+                }
+                placeholder="6037-****-****-****"
+                className={`w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                  errors.sourceCard ? "border-red-500" : "border-gray-300"
+                }`}
+              />
+              {!errors.sourceCard &&
+                sourceCard.replace(/-/g, "").length === 16 && (
+                  <CheckCircle
+                    className="absolute left-3 top-3.5 text-green-500"
+                    size={20}
+                  />
+                )}
+            </div>
+            {errors.sourceCard && (
+              <p className="mt-1 text-red-500 text-sm flex items-center">
+                <AlertCircle className="ml-1" size={16} />
+                {errors.sourceCard}
+              </p>
+            )}
+          </motion.div>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1 }}
-        >
-          <label className="block text-gray-700 mb-2 font-medium">
-            شماره کارت مبدأ
-          </label>
-          <div className="relative">
-            <input
-              type="text"
-              maxLength={19}
-              value={sourceCard}
-              onChange={(e) => setSourceCard(formatCardNumber(e.target.value))}
-              placeholder="6037-****-****-****"
-              className={`w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                errors.sourceCard ? "border-red-500" : "border-gray-300"
-              }`}
-            />
-            {!errors.sourceCard &&
-              sourceCard.replace(/-/g, "").length === 16 && (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <label className="block text-gray-700 mb-2 font-medium">
+              شماره کارت مقصد
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                maxLength={19}
+                value={destCard}
+                onChange={(e) => setDestCard(formatCardNumber(e.target.value))}
+                placeholder="6219-****-****-****"
+                className={`w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                  errors.destCard ? "border-red-500" : "border-gray-300"
+                }`}
+              />
+              {!errors.destCard && destCard.replace(/-/g, "").length === 16 && (
                 <CheckCircle
                   className="absolute left-3 top-3.5 text-green-500"
                   size={20}
                 />
               )}
-          </div>
-          {errors.sourceCard && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
-              <AlertCircle className="ml-1" size={16} />
-              {errors.sourceCard}
-            </p>
-          )}
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <label className="block text-gray-700 mb-2 font-medium">
-            شماره کارت مقصد
-          </label>
-          <div className="relative">
-            <input
-              type="text"
-              maxLength={19}
-              value={destCard}
-              onChange={(e) => setDestCard(formatCardNumber(e.target.value))}
-              placeholder="6219-****-****-****"
-              className={`w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                errors.destCard ? "border-red-500" : "border-gray-300"
-              }`}
-            />
-            {!errors.destCard && destCard.replace(/-/g, "").length === 16 && (
-              <CheckCircle
-                className="absolute left-3 top-3.5 text-green-500"
-                size={20}
-              />
+            </div>
+            {errors.destCard && (
+              <p className="mt-1 text-red-500 text-sm flex items-center">
+                <AlertCircle className="ml-1" size={16} />
+                {errors.destCard}
+              </p>
             )}
-          </div>
-          {errors.destCard && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
-              <AlertCircle className="ml-1" size={16} />
-              {errors.destCard}
-            </p>
-          )}
-        </motion.div>
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          <label className="block text-gray-700 mb-2 font-medium">
-            مبلغ (تومان)
-          </label>
-          <div className="relative">
-            <input
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              className={`w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                errors.amount ? "border-red-500" : "border-gray-300"
-              }`}
-            />
-            {!errors.amount && amount && (
-              <span className="absolute left-3 top-3.5 text-gray-500">
-                تومان
-              </span>
-            )}
-          </div>
-          {errors.amount && (
-            <p className="mt-1 text-red-500 text-sm flex items-center">
-              <AlertCircle className="ml-1" size={16} />
-              {errors.amount}
-            </p>
-          )}
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            type="submit"
-            disabled={isSubmitting}
-            className={`w-full py-3 rounded-lg text-white font-medium ${
-              isSubmitting ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
-            }`}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
           >
-            {isSubmitting ? (
-              <span className="inline-flex items-center">
-                <svg
-                  className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-                در حال پردازش...
-              </span>
-            ) : (
-              "ادامه به پرداخت"
+            <label className="block text-gray-700 mb-2 font-medium">
+              مبلغ (تومان)
+            </label>
+            <div className="relative">
+              <input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className={`w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                  errors.amount ? "border-red-500" : "border-gray-300"
+                }`}
+              />
+              {!errors.amount && amount && (
+                <span className="absolute left-3 top-3.5 text-gray-500">
+                  تومان
+                </span>
+              )}
+            </div>
+            {errors.amount && (
+              <p className="mt-1 text-red-500 text-sm flex items-center">
+                <AlertCircle className="ml-1" size={16} />
+                {errors.amount}
+              </p>
             )}
-          </motion.button>
-        </motion.div>
-      </form>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              type="submit"
+              disabled={isSubmitting}
+              className={`w-full py-3 rounded-lg text-white font-medium ${
+                isSubmitting ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
+              }`}
+            >
+              {isSubmitting ? (
+                <span className="inline-flex items-center">
+                  <svg
+                    className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  در حال پردازش...
+                </span>
+              ) : (
+                "ادامه پرداخت"
+              )}
+            </motion.button>
+          </motion.div>
+        </form>
+      </div>
     </motion.div>
   );
 }

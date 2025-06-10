@@ -42,24 +42,28 @@ const games = [
     icon: <CreditCard size={18} />,
     title: "کارت به کارتِ سریع!",
     color: "blue",
+    route: "/transfer",
   },
   {
     id: 2,
     icon: <Check size={18} />,
     title: "چک‌نویس حرفه‌ای!",
     color: "green",
+    route: "/check-register", 
   },
   {
     id: 3,
     icon: <ShoppingCart size={18} />,
     title: "پرداخت قبض‌ها",
     color: "purple",
+    route: "/bill-payment",
   },
   {
     id: 4,
     icon: <ShieldAlert size={18} />,
     title: "شکارچی فیشینگ!",
     color: "orange",
+    route: "/phishing-game",
   },
   {
     id: 5,
@@ -99,8 +103,9 @@ const games = [
   },
 ];
 
-const GamePage = ({ onBack, onGameSelect }) => {
+const GamePage = ({ onBack }) => {
   const navigate = useNavigate();
+
   return (
     <div
       dir="rtl"
@@ -142,7 +147,6 @@ const GamePage = ({ onBack, onGameSelect }) => {
             className="bg-white rounded-xl shadow-sm p-4 border border-gray-100 hover:shadow-md flex-1 min-w-[44%] max-w-[48%] sm:max-w-[30%] lg:max-w-[31%] xl:max-w-[23%]"
           >
             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2 text-right">
-              {/* Icon & Title */}
               <div className="flex flex-col items-center md:items-start">
                 <div className={`p-2 rounded-xl ${colorClasses[game.color]}`}>
                   {game.icon}
@@ -151,18 +155,16 @@ const GamePage = ({ onBack, onGameSelect }) => {
                   {game.title}
                 </h3>
               </div>
-              {/* Button */}
-              <button
-                onClick={() => {
-                  if (game.id === 1) navigate("/transfer");
-                  else if (game.id === 2) navigate("/bill-payment");
-                }}
-                className={`md:mt-0 mt-2 px-4 py-1 self-center md:self-end rounded-md ${
-                  buttonClasses[game.color]
-                } text-white text-[11px] font-medium`}
-              >
-                شروع
-              </button>
+              {game.route && (
+                <button
+                  onClick={() => navigate(game.route)}
+                  className={`md:mt-0 mt-2 px-4 py-1 self-center md:self-end rounded-md ${
+                    buttonClasses[game.color]
+                  } text-white text-[11px] font-medium`}
+                >
+                  شروع
+                </button>
+              )}
             </div>
           </div>
         ))}

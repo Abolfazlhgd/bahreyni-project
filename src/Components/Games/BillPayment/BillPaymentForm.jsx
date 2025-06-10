@@ -29,7 +29,7 @@ function BillPaymentForm({ onSubmit }) {
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded-xl shadow-md space-y-6">
-      <h2 className="text-lg font-bold text-center">پرداخت قبض</h2>
+      <h2 className="text-lg font-bold text-center p-6">پرداخت قبض</h2>
 
       <div className="space-y-4">
         <div>

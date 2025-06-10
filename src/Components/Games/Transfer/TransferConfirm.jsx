@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle, XCircle, Clock, RotateCw, ArrowLeft } from "lucide-react";
+import {
+  CheckCircle,
+  XCircle,
+  Clock,
+  RotateCw,
+  ArrowRight,
+} from "lucide-react";
 
 function PaymentConfirm({ data, onBack, onSuccess }) {
   const [otp, setOtp] = useState("");
@@ -89,17 +95,18 @@ function PaymentConfirm({ data, onBack, onSuccess }) {
 
   return (
     <motion.div
+      dir="rtl"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="max-w-md mx-auto p-6 bg-white rounded-xl shadow-lg text-right relative"
+      className="max-w-md mx-auto p-6 bg-white rounded-xl shadow-lg text-right relative "
     >
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-6 pt-4">
         <button
           onClick={onBack}
           className="flex items-center text-blue-600 hover:text-blue-800"
         >
-          <ArrowLeft size={18} className="ml-1" />
+          <ArrowRight size={18} className="ml-1" />
           بازگشت
         </button>
         <h2 className="text-2xl font-bold text-gray-800">تأیید پرداخت</h2>

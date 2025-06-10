@@ -4,6 +4,7 @@ import {
   Navigate,
   useLocation,
   useNavigate,
+  data,
 } from "react-router-dom";
 import { useState } from "react";
 import Login from "./Components/Login/Login.jsx";
@@ -14,7 +15,10 @@ import TransferForm from "./Components/Games/Transfer/TransferForm";
 import TransferConfirm from "./Components/Games/Transfer/TransferConfirm";
 import TransactionReceipt from "./Components/Games/Transfer/TransactionReceipt..jsx";
 import BillPaymentForm from "./Components/Games/BillPayment/BillPaymentForm";
+import BillDetailsPage from "./Components/Games/BillPayment/BillDetailsPage.jsx";
 import BottomNav from "./Components/Home/BottomNav";
+import CheckRegisterForm from "./Components/Games/CheckRegister/CheckRegisterForm.jsx";
+import PhishingGame from "./Components/Games/PhishingGame/PhishingGame.jsx";
 
 function AppContent() {
   const [transferData, setTransferData] = useState(null);
@@ -31,7 +35,6 @@ function AppContent() {
         <Route path="/" element={<HomePage />} />
         <Route path="/trophies" element={<TrophyPage />} />
         <Route path="/goals" element={<GamePage />} />
-
         <Route
           path="/transfer"
           element={
@@ -65,7 +68,17 @@ function AppContent() {
             />
           }
         />
-        <Route path="/bill-payment" element={<BillPaymentForm />} />
+        <Route
+          path="/bill-payment"
+          element={
+            <BillPaymentForm
+              onSubmit={(data) => navigate("/bill-details", { state: data })}
+            />
+          }
+        />
+        <Route path="phishing-game" element={<PhishingGame />}/>
+        <Route path="/bill-details" element={<BillDetailsPage />} />
+        <Route path="/check-register" element={<CheckRegisterForm />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
 
